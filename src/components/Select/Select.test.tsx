@@ -1,9 +1,9 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-//import userEvent from "@testing-library/user-event";
+import userEvent from "@testing-library/user-event";
 import { Select } from "./Select";
 
 describe("Select tests", () => {
-  test("renders the correct content", () => {
+  it("Select and options are rendered", () => {
     render(<Select />);
     const combobox = screen.getByRole("combobox");
     expect(combobox).toBeInTheDocument();
@@ -11,14 +11,25 @@ describe("Select tests", () => {
     const option = screen.getByRole("option", { name: "perro" });
     expect(option).toBeInTheDocument();
   });
-  /* test("select option, animal render", () => {
+  it("Selected value is not rendered", () => {
     render(<Select />);
-    expect(screen.queryByTestId("selected-animal")).toBeNull();
-    const select = screen.getByRole("combobox");
-    expect(select).toBeInTheDocument();
-    //userEvent.selectOptions(select, "perro");
-    fireEvent.change(select, { target: { value: "perro" } });
-    expect(select).toHaveValue("perro");
-    expect(screen.getByTestId("selected-animal")).toBeInTheDocument();
-  }); */
+    const selectedValue = screen.queryByTestId("selected-animal");
+    expect(selectedValue).not.toBeInTheDocument();
+  });
+  it("After a value is selected, the value is rendered (fire event)", () => {
+    render(<Select />);
+    const combobox = screen.getByRole("combobox");
+    fireEvent.change(combobox, { target: { value: "perro" } });
+    expect(combobox).toHaveValue("perro");
+    const selectedValue = screen.getByTestId("selected-animal");
+    expect(selectedValue).toBeInTheDocument();
+  });
+  it("After a value is selected, the value is rendered (user event)", async () => {
+    render(<Select />);
+    const combobox = screen.getByRole("combobox");
+    await userEvent.selectOptions(combobox, "perro");
+    expect(combobox).toHaveValue("perro");
+    const selectedValue = screen.getByTestId("selected-animal");
+    expect(selectedValue).toBeInTheDocument();
+  });
 });

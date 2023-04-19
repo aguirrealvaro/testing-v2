@@ -2,6 +2,11 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { Input } from "./Input";
 
 describe("Input tests", () => {
+  it("Title is rendered", () => {
+    render(<Input />);
+    const title = screen.getByRole("heading", { level: 2 });
+    expect(title).toBeInTheDocument();
+  });
   it("Input is rendered", () => {
     render(<Input />);
     const input = screen.getByLabelText("Add todo item:");

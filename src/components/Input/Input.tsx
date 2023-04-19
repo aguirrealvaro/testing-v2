@@ -17,11 +17,13 @@ export const Input: FunctionComponent = () => {
     <div>
       <div>
         <h2>TODO List:</h2>
-        <ul>
-          {list.map((item) => {
-            return <li key={item}>{item}</li>;
-          })}
-        </ul>
+        {Boolean(list.length) && (
+          <ul>
+            {list.map((item) => {
+              return <li key={item}>{item}</li>;
+            })}
+          </ul>
+        )}
       </div>
       <div>
         <label htmlFor="todo">Add todo item:</label>

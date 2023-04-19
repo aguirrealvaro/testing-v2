@@ -7,4 +7,14 @@ describe("Input tests", () => {
     const input = screen.getByLabelText("Add todo item:");
     expect(input).toBeInTheDocument();
   });
+  it("Button is rendered", () => {
+    render(<Input />);
+    const button = screen.getByRole("button", { name: /add/i });
+    expect(button).toBeInTheDocument();
+  });
+  it("List is not initially rendered", () => {
+    render(<Input />);
+    const list = screen.queryByRole("list");
+    expect(list).not.toBeInTheDocument();
+  });
 });

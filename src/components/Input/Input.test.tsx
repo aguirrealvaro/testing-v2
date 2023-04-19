@@ -37,4 +37,13 @@ describe("Input tests", () => {
     await userEvent.type(input, "Typing");
     expect(input).toHaveValue("Typing");
   });
+  it("Check that after typing the input and pressed the button, the input is cleared", async () => {
+    render(<Input />);
+    const input = screen.getByLabelText("Add todo item:");
+    await userEvent.type(input, "Something");
+    expect(input).toHaveValue("Something");
+    const button = screen.getByRole("button", { name: /add/i });
+    await userEvent.click(button);
+    expect(input).toHaveValue("");
+  });
 });

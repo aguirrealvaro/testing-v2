@@ -4,7 +4,7 @@ import { defineConfig, loadEnv } from "vite";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const PACKAGE = require("./package.json");
 
-const validEnvs = ["development", "production"];
+const validEnvs = ["development", "production", "test"];
 
 export default defineConfig(({ mode }) => {
   if (!validEnvs.includes(mode)) {
@@ -26,6 +26,12 @@ export default defineConfig(({ mode }) => {
         MODE: mode,
         APP_VERSION: PACKAGE.version,
       },
+    },
+    test: {
+      environment: "jsdom",
+      setupFiles: ["./tests/setup.ts"],
+      testMatch: ["./**/*.test.tsx"],
+      globals: true,
     },
   };
 });

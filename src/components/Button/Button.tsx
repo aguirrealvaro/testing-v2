@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
 
 export const Button: FunctionComponent = () => {
-  return <div>Button</div>;
+  return <div>soy un boton</div>;
 };

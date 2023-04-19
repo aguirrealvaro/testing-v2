@@ -1,5 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Input } from "./Input";
+
+//const user = userEvent.setup();
 
 describe("Input tests", () => {
   it("Title is rendered", () => {
@@ -22,11 +25,16 @@ describe("Input tests", () => {
     const list = screen.queryByRole("list");
     expect(list).not.toBeInTheDocument();
   });
-  it("Check that input is writable", () => {
+  it("Check that input is writable (fireEvent)", () => {
     render(<Input />);
     const input = screen.getByLabelText("Add todo item:");
-    //userEvent.type(input, "Typing");
     fireEvent.change(input, { target: { value: "Typing" } });
+    expect(input).toHaveValue("Typing");
+  });
+  it("Check that input is writable (user-event)", async () => {
+    render(<Input />);
+    const input = screen.getByLabelText("Add todo item:");
+    await userEvent.type(input, "Typing");
     expect(input).toHaveValue("Typing");
   });
 });

@@ -1,7 +1,12 @@
 import { FunctionComponent } from "react";
+import { Input } from "./components";
 
 const App: FunctionComponent = () => {
-  return <h1>Hello world</h1>;
+  return (
+    <div>
+      <Input />
+    </div>
+  );
 };
 
 export default App;

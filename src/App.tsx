@@ -1,10 +1,11 @@
 import { FunctionComponent } from "react";
-import { Input } from "./components";
+import { Input, Select } from "./components";
 
 const App: FunctionComponent = () => {
   return (
     <div>
       <Input />
+      <Select />
     </div>
   );
 };

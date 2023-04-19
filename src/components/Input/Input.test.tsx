@@ -2,8 +2,6 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Input } from "./Input";
 
-//const user = userEvent.setup();
-
 describe("Input tests", () => {
   it("Title is rendered", () => {
     render(<Input />);
@@ -45,5 +43,33 @@ describe("Input tests", () => {
     const button = screen.getByRole("button", { name: /add/i });
     await userEvent.click(button);
     expect(input).toHaveValue("");
+  });
+  it("Check that list is render after sending a value, and it has a single item list", async () => {
+    render(<Input />);
+    const input = screen.getByLabelText("Add todo item:");
+    const button = screen.getByRole("button", { name: /add/i });
+    const list = screen.queryByRole("list");
+    expect(list).not.toBeInTheDocument();
+    await userEvent.type(input, "Something");
+    await userEvent.click(button);
+    const renderedList = screen.getByRole("list");
+    expect(renderedList).toBeInTheDocument();
+    const listItems = screen.getAllByRole("listitem");
+    expect(listItems).toHaveLength(1);
+  });
+  it("Check that list is render after sending a value, and it has 2 items list", async () => {
+    render(<Input />);
+    const input = screen.getByLabelText("Add todo item:");
+    const button = screen.getByRole("button", { name: /add/i });
+    const list = screen.queryByRole("list");
+    expect(list).not.toBeInTheDocument();
+    await userEvent.type(input, "Something");
+    await userEvent.click(button);
+    const renderedList = screen.getByRole("list");
+    expect(renderedList).toBeInTheDocument();
+    await userEvent.type(input, "Something else");
+    await userEvent.click(button);
+    const listItems = screen.getAllByRole("listitem");
+    expect(listItems).toHaveLength(2);
   });
 });

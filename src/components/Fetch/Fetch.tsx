@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from "react";
 
-type User = {
+export type UserType = {
   userId: number;
   id: number;
   title: string;
@@ -9,7 +9,7 @@ type User = {
 
 export const Fetch: FunctionComponent = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<UserType[]>([]);
 
   const fetchUsers = async () => {
     setIsLoading(true);
@@ -22,7 +22,7 @@ export const Fetch: FunctionComponent = () => {
   return (
     <div style={{ marginTop: "3rem" }}>
       <button onClick={fetchUsers}>Load users</button>
-      {isLoading && <span>Loading...</span>}
+      {isLoading && <span data-testid="loading-status">Loading...</span>}
       {Boolean(users.length) && (
         <>
           <h2>Users:</h2>

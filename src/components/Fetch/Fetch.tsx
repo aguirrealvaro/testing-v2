@@ -8,31 +8,32 @@ type User = {
 };
 
 export const Fetch: FunctionComponent = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [users, setUsers] = useState<User[]>([]);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await fetch("https://jsonplaceholder.typicode.com/todos");
-      const data = await response.json();
-      setUsers(data);
-    };
-
-    fetchUsers();
-  }, []);
+  const fetchUsers = async () => {
+    setIsLoading(true);
+    const response = await fetch("https://jsonplaceholder.typicode.com/todos");
+    const data = await response.json();
+    setIsLoading(false);
+    setUsers(data);
+  };
 
   return (
     <div>
-      <h2>Users:</h2>
-      {users.length === 0 ? (
-        <span>Loading...</span>
-      ) : (
-        <ul>
-          {users.map((user) => {
-            const { id, title } = user;
+      <button onClick={fetchUsers}>Load users</button>
+      {isLoading && <span>Loading...</span>}
+      {Boolean(users.length) && (
+        <>
+          <h2>Users:</h2>
+          <ul>
+            {users.map((user) => {
+              const { id, title } = user;
 
-            return <li key={id}>{title}</li>;
-          })}
-        </ul>
+              return <li key={id}>{title}</li>;
+            })}
+          </ul>
+        </>
       )}
     </div>
   );

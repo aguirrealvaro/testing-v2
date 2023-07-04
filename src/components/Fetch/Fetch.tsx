@@ -1,6 +1,7 @@
 import { FunctionComponent, useState } from "react";
+import fetch from "cross-fetch";
 
-export type UserType = {
+type UserType = {
   userId: number;
   id: number;
   title: string;

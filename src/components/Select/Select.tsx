@@ -8,7 +8,7 @@ export const Select: FunctionComponent = () => {
   };
 
   return (
-    <div>
+    <div style={{ marginTop: "3rem" }}>
       <select onChange={onSelectDog} role="combobox">
         <option>Select option</option>
         <option value="perro">perro</option>

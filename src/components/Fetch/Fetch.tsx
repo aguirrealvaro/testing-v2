@@ -20,7 +20,7 @@ export const Fetch: FunctionComponent = () => {
   };
 
   return (
-    <div>
+    <div style={{ marginTop: "3rem" }}>
       <button onClick={fetchUsers}>Load users</button>
       {isLoading && <span>Loading...</span>}
       {Boolean(users.length) && (
